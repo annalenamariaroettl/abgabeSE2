@@ -3,21 +3,22 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.TextView;
 
-import static com.example.myapplication.R.id.myNumber;
-import static com.example.myapplication.R.id.serverAntwort;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
-
     private TextView matrikelnumber;
     private TextView antwortServer;
     private String matrikel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +84,37 @@ public class MainActivity extends AppCompatActivity {
                    }
 
                    result= new String(myChar);
-               Log.d("t", "onClick: "+result);
-                     antwortServer.setText(result);
+
+                    antwortServer.setText(result);
 
            }
        });
+
+        }
+
+        public void sendMessage(View v){
+
+                  matrikel = matrikelnumber.getText().toString();
+
+
+                  try {
+                      TCP_Thread thread = new TCP_Thread(matrikel);
+                      thread.start(); //start runnable
+
+
+                      thread.join(); //wartet bis der task im tcp thread  fertig ist 
+
+                      antwortServer.setText(thread.getModifiedSentence());
+
+                  } catch (Exception e) {
+
+                      antwortServer.setText(e.toString());
+                  }
+
+
+
+
+
 
         }
 
