@@ -13,14 +13,14 @@ import java.net.Socket;
 
 
 public class TCP_Thread extends Thread {
-    static Socket clientSocket = null;
+    static Socket myClientSocket = null;
     private static final int SERVERPORT = 53212;
     private static final String SERVER = "se2-isys.aau.at";
-    private String message;
+    private String mymessage;
     private String modifiedSentence;
 
     TCP_Thread(String text) {
-        this.message = text;
+        this.mymessage = text;
     }
 
     public String getModifiedSentence() {
@@ -33,24 +33,26 @@ public class TCP_Thread extends Thread {
     public void run() {
 
         try {
-            clientSocket = new Socket(SERVER, SERVERPORT);
+            myClientSocket = new Socket(SERVER, SERVERPORT);
 
             try {
-                DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());// sendet zum Server
-                BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); //zurück vom Server
-                outToServer.writeBytes(message + "\n"); //als Bytestream senden
+                DataOutputStream outToServer = new DataOutputStream(myClientSocket.getOutputStream());// sendet zum Server
+                BufferedReader inFromServer = new BufferedReader(new InputStreamReader(myClientSocket.getInputStream())); //zurück vom Server
+
+                outToServer.writeBytes(mymessage + "\n"); //als Bytestream senden
 
                 modifiedSentence = inFromServer.readLine();
 
 
-            } catch (Exception e) {
-                Log.e("error",e.toString());
+            } catch (Exception myException) {
+                Log.e("Fehler",myException.toString());
 
-                throw e;
+                throw myException;
 
             }  finally {
-                if (clientSocket != null) {
-                    clientSocket.close();
+
+                if (myClientSocket != null) {
+                    myClientSocket.close();
                 }
             }
 

@@ -106,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
 
                       antwortServer.setText(thread.getModifiedSentence());
 
-                  } catch (Exception e) {
+                  } catch (Exception myException) {
 
-                      antwortServer.setText(e.toString());
+                      antwortServer.setText(myException.toString());
                   }
 
 
