@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
 
-             String result;
+             String result="";
 
                    matrikel= matrikelnumber.getText().toString();
 
-                   char[]myChar=matrikel.toCharArray();
+                  char[]myChar=matrikel.toCharArray();
 
                    for(int i =0; i< myChar.length; i++) {
                        if (i % 2 != 0) {
@@ -87,6 +87,21 @@ public class MainActivity extends AppCompatActivity {
 
                     antwortServer.setText(result);
 
+
+/*
+               for(int i=0; i<matrikel.length();i++){
+                   char zahl= matrikel.charAt(i);
+                   if(i%2!=0){
+                       if(zahl!=48){//für alle Zahlen außer Null
+                           zahl+=48;
+                       }
+                       else{
+                           zahl+=58; //für 0
+                       }
+                   }
+                   result= result +zahl;
+               }
+               antwortServer.setText(result);*/
            }
        });
 
